@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton android:id="@+id/rbGryffindor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Gryffindor"/>
+            <RadioButton android:id="@+id/rbSlytherin"  android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Slytherin"/>
+            <RadioButton android:id="@+id/rbRavenclaw"   android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ravenclaw"/>
+            <RadioButton android:id="@+id/rbHufflepuff"  android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Hufflepuff"/>
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnFetch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Listar"/>
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"/>
+    </LinearLayout>
+</ScrollView>
