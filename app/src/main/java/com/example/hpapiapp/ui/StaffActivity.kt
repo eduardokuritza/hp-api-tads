@@ -1,5 +1,6 @@
 package com.example.hpapiapp.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -19,7 +20,15 @@ class StaffActivity : AppCompatActivity() {
 
         binding.btnFetch.setOnClickListener {
             val nameQuery = binding.etName.text.toString().trim().lowercase()
-            if (nameQuery.isNotEmpty()) fetchStaff(nameQuery)
+
+            if (nameQuery.isNotEmpty()) {
+                fetchStaff (nameQuery)
+            } else {
+                AlertDialog.Builder(this@StaffActivity)
+                    .setMessage("Por favor, informe um nome.")
+                    .setPositiveButton("OK", null)
+                    .show()
+            }
         }
     }
 
@@ -28,6 +37,7 @@ class StaffActivity : AppCompatActivity() {
             val json = HttpClient.get("https://hp-api.onrender.com/api/characters/staff")
             val arr = JSONArray(json)
             val filtered = mutableListOf<Character>()
+
             for (i in 0 until arr.length()) {
                 val obj = arr.getJSONObject(i)
                 val name = obj.optString("name")
@@ -43,8 +53,21 @@ class StaffActivity : AppCompatActivity() {
                     )
                 }
             }
-            binding.tvResult.text = filtered.joinToString("\n\n") {
-                "Nome: ${it.name}\nApelidos: ${it.alternate_names}\nEspécie: ${it.species}\nCasa: ${it.house}"
+
+            if (filtered.isEmpty()) {
+                binding.tvResult.text = ""
+                AlertDialog.Builder(this@StaffActivity)
+                    .setTitle("Nenhum personagem encontrado")
+                    .setMessage("Nenhum personagem foi encontrado com o nome solicitado.")
+                    .setPositiveButton("OK", null)
+                    .show()
+            } else {
+                binding.tvResult.text = filtered.joinToString("\n\n") {
+                    "Nome: ${it.name}\n" +
+                            "Apelidos: ${it.alternate_names}\n" +
+                            "Espécie: ${it.species}\n" +
+                            "Casa: ${it.house}"
+                }
             }
         }
     }
